@@ -1,13 +1,13 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("🚗 Car Simulation Started 🚗");
+        System.out.println(" Car Simulation Started ");
         System.out.println("============================");
 
         Car car = new Car()
                 .setBrand("BMW")
                 .setModel("X1")
                 .setCurrentFule(0)     // no fuel initially
-                .setAverage(15);       // 15 km/l mileage
+                .setAverage(15);       
 
         // 1. Try starting with no fuel
         car.startCar();
@@ -37,6 +37,6 @@ public class Main {
         car.startCar().drive(200).stopCar();
 
         System.out.println("============================");
-        System.out.println("🚗 Car Simulation Ended 🚗");
+        System.out.println(" Car Simulation Ended ");
     }
 }

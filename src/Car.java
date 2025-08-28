@@ -3,7 +3,7 @@ public class Car {
     private String model;
     private float currentFule;   // litres
     private boolean isStarted;
-    private float average;       // km per litre
+    private float average;       // km per litr
 
     // --- setters with chaining ---
     public Car setBrand(String brand) {
