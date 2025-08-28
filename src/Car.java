@@ -1,83 +1,87 @@
 public class Car {
-String brand;
-String model;
-int currentFule;
-boolean isStarted;
-float speed;
-float average;
+    private String brand;
+    private String model;
+    private float currentFule;   // litres
+    private boolean isStarted;
+    private float average;       // km per litre
 
-public void  setBrand(String brand) {
-    this.brand = brand;
-}
+    // --- setters with chaining ---
+    public Car setBrand(String brand) {
+        this.brand = brand;
+        return this;
+    }
 
-public void setModel(String model){
-    this.model = model;
-}
+    public Car setModel(String model) {
+        this.model = model;
+        return this;
+    }
 
-public void setCurrentFule(int currentFule){
-    this.currentFule = currentFule;
-}
+    public Car setCurrentFule(float currentFule) {
+        this.currentFule = currentFule;
+        return this;
+    }
 
-public float average(float average){
-    this.average=average;
-    return average;
-}
+    public Car setAverage(float average) {
+        this.average = average;
+        return this;
+    }
 
-public float maxDistance(){
-    return average*this.currentFule;
-}
+    // --- behaviors ---
+    public Car startCar() {
+        if (currentFule == 0) {
+            System.out.println("Can't start car... please refuel the car");
+        } else if (currentFule < 5) {
+            System.out.println("Car is on Reserve mode. Can only travel: " + maxDistance() + " km");
+            isStarted = true;
+        } else {
+            System.out.println("Car started ...... bruuuuuuu");
+            isStarted = true;
+        }
+        return this;
+    }
 
-public void startCar(){
-    if(currentFule==0){
-        System.out.println("can't start car... please refule the car");
-    } else if (currentFule < 5) {
-        System.out.println("Car is on Reserve mode only travel: "+maxDistance()+" Km");
-    } else {
-        System.out.println("car started ...... bruuuuuuu");
-        isStarted=true;
+    public Car stopCar() {
+        if (isStarted) {
+            System.out.println("Car stopped");
+            isStarted = false;
+        }
+        return this;
+    }
+
+    public Car reFule(float fule) {
+        if (isStarted) {
+            System.out.println("Stop the car to refuel!");
+        } else {
+            currentFule += fule;
+            System.out.println("Car refueled, fuel now: " + currentFule + " litres");
+        }
+        return this;
+    }
+
+    public Car drive(int km) {
+        if (isStarted) {
+            float fuelNeeded = km / average;
+            if (fuelNeeded <= currentFule) {
+                currentFule -= fuelNeeded;
+                System.out.println("Car drove " + km + " km. Fuel left: " + currentFule + " litres.");
+            } else {
+                float possibleDistance = currentFule * average;
+                System.out.println("Not enough fuel! Car stopped after driving only " + possibleDistance + " km.");
+                currentFule = 0;
+                isStarted = false;
+            }
+        } else {
+            System.out.println("Please start the car first!");
+        }
+        return this;
+    }
+
+    public float maxDistance() {
+        return average * currentFule;
+    }
+
+    public Car checkFuel() {
+        System.out.println("Fuel left: " + currentFule + " litres (" + maxDistance() + " km possible)");
+        return this;
     }
 }
-
-public void drive(int km){
-    if(isStarted){
-        System.out.println("car has in drive mode!! bruuuu bruuu ");
-        System.out.println("car had "+currentFule+" liters, and can run for "+maxDistance()+" Km");
-    }else {
-        System.out.println("please start the car!!!!");
-    }
-}
-
-
-public void stopCar(){
-    if(isStarted){
-        System.out.println("car stopped");
-        isStarted=false;
-    }
-}
-
-public void reFule(int fule){
-    if(isStarted){
-        System.out.println("stop the car to refule the car");
-    }else {
-        currentFule+=fule;
-    }
-}
-
-}
-
-
-
-/*
-* Car Class
-Attributes (data members):
-String brand
-String model
-int fuelLevel (in percentage, 0–100)
-boolean isStarted
-
-Methods (behaviors):
-startCar() → if fuel > 0, start the car, else show “Cannot start, fuel empty.”
-stopCar() → stop the car.
-drive(int km) → reduce fuel based on distance (e.g., 1 km consumes 2 fuel units). If fuel is not enough, show “Car stopped, fuel empty.”
-refuel(int amount) → increase fuel level but not more than 100.
-checkFuel() → display current fuel level.*/

@@ -1,18 +1,42 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        System.out.println("jay shri ganesha!!!");
-        Car car = new Car();
+        System.out.println("🚗 Car Simulation Started 🚗");
+        System.out.println("============================");
 
-        car.setBrand("BMW");
-        car.setModel("X1");
-        car.setCurrentFule(0);
+        Car car = new Car()
+                .setBrand("BMW")
+                .setModel("X1")
+                .setCurrentFule(0)     // no fuel initially
+                .setAverage(15);       // 15 km/l mileage
 
+        // 1. Try starting with no fuel
         car.startCar();
-        car.reFule(6);
-        car.startCar();
-        car.drive(5);
 
+        // 2. Refuel 10 litres
+        car.reFule(10);
+
+        // 3. Start the car
+        car.startCar();
+
+        // 4. Drive 50 km
+        car.drive(50);
+
+        // 5. Check remaining distance possible
+        System.out.println("Car can still travel up to: " + car.maxDistance() + " km");
+
+        // 6. Drive another 120 km (will run out of fuel)
+        car.drive(120);
+
+        // 7. Stop the car
+        car.stopCar();
+
+        // 8. Refuel again
+        car.reFule(20);
+
+        // 9. Restart and drive
+        car.startCar().drive(200).stopCar();
+
+        System.out.println("============================");
+        System.out.println("🚗 Car Simulation Ended 🚗");
     }
 }
